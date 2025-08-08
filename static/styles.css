@@ -1,0 +1,98 @@
+body {
+  font-family: 'Segoe UI', sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background: radial-gradient(circle at center, #222 0%, #000 100%);
+  color: #fff;
+}
+
+.container {
+  text-align: center;
+}
+
+h1 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  text-shadow: 0 0 15px #ff9800, 0 0 25px #ff5722;
+}
+
+#candle {
+  width: 120px;
+  margin: 30px auto;
+  position: relative;
+}
+
+#wax {
+  width: 80px;
+  height: 140px;
+  background: linear-gradient(to bottom, #fff, #f2f2f2);
+  border-radius: 15px;
+  margin: 0 auto;
+  box-shadow: inset 0 0 10px rgba(255,255,255,0.5),
+              0 0 20px rgba(255,255,255,0.3),
+              0 10px 20px rgba(0,0,0,0.5);
+  position: relative;
+  z-index: 2;
+}
+
+#flame {
+  width: 35px;
+  height: 55px;
+  background: radial-gradient(circle at 30% 30%, #fff 10%, #ffeb3b 30%, #ff9800 70%);
+  border-radius: 50% 50% 40% 40%;
+  position: absolute;
+  top: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  box-shadow: 0 0 20px rgba(255, 193, 7, 0.9),
+              0 0 40px rgba(255, 152, 0, 0.7),
+              0 0 60px rgba(255, 87, 34, 0.6);
+  animation: flicker 0.15s infinite;
+}
+
+#flame.off {
+  display: none;
+}
+
+#base {
+  width: 100px;
+  height: 25px;
+  background: linear-gradient(to right, #4e342e, #3e2723);
+  border-radius: 50%;
+  margin: -10px auto 0;
+  box-shadow: inset 0 5px 10px rgba(0,0,0,0.5),
+              0 10px 15px rgba(0,0,0,0.7);
+  position: relative;
+  z-index: 1;
+}
+
+button {
+  margin-top: 20px;
+  padding: 10px 25px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 25px;
+  background: linear-gradient(to right, #ff9800, #ff5722);
+  color: white;
+  cursor: pointer;
+  box-shadow: 0 5px 15px rgba(255, 87, 34, 0.6);
+  transition: transform 0.2s ease;
+}
+
+button:hover {
+  transform: scale(1.05);
+}
+
+#status {
+  margin-top: 15px;
+  font-size: 1.1rem;
+  color: #ffcc80;
+}
+
+@keyframes flicker {
+  0% { transform: scale(1) rotate(-1deg); opacity: 1; }
+  50% { transform: scale(0.98) rotate(1deg); opacity: 0.85; }
+  100% { transform: scale(1) rotate(-1deg); opacity: 1; }
+}
