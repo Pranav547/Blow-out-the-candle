@@ -1,22 +1,158 @@
-<!doctype html>
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Candle Blow Detector</title>
-    <link rel="stylesheet" href="styles.css" />
-  </head>
-  <body>
-    <div class="container">
-      <h1>🕯 Blow the Candle!</h1>
-      <div id="candle">
-        <div id="flame"></div>
-        <div id="wax"></div>
-        <div id="base"></div>
-      </div>
-      <button id="startBtn">Start</button>
-      <p id="status">Status: idle</p>
-    </div>
-    <script src="script.js"></script>
-  </body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blow Out the Candle</title>
+<style>
+  body {
+    background: #111;
+    color: white;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    padding-top: 50px;
+  }
+  button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    background: orange;
+    color: black;
+    border-radius: 5px;
+    margin-bottom: 20px;
+  }
+  #flame {
+    position: relative;
+    margin: 0 auto;
+    width: 40px;
+    height: 60px;
+    background: radial-gradient(circle at 50% 20%, yellow 0%, orange 60%, red 100%);
+    border-radius: 50% 50% 50% 50%;
+    animation: flicker 0.2s infinite;
+    transition: opacity 0.5s ease;
+  }
+  #flame.off {
+    opacity: 0;
+    animation: none;
+  }
+  @keyframes flicker {
+    0%   { transform: scale(1)   rotate(0deg); }
+    25%  { transform: scale(1.05) rotate(2deg); }
+    50%  { transform: scale(0.95) rotate(-2deg); }
+    75%  { transform: scale(1.05) rotate(-1deg); }
+    100% { transform: scale(1)   rotate(0deg); }
+  }
+</style>
+</head>
+<body>
+
+<h1>Blow Out the Candle</h1>
+<button id="startBtn">Start</button>
+<p id="status">Status: stopped</p>
+
+<!-- Candle Flame -->
+<div id="flame"></div>
+
+<script>
+const startBtn = document.getElementById('startBtn');
+const statusP = document.getElementById('status');
+const flame = document.getElementById('flame');
+
+let audioContext;
+let analyser;
+let microphone;
+let javascriptNode;
+let running = false;
+
+// Dynamic threshold variables
+let baseNoiseLevel = 0;
+let calibrated = false;
+let dynamicThreshold = 0.25; // Will be updated after calibration
+
+// How long flame stays off before relighting
+const RELIGHT_DELAY = 3000; // 3 seconds
+
+startBtn.onclick = () => {
+  if (running) {
+    stop();
+  } else {
+    start();
+  }
+}
+
+async function start() {
+  startBtn.textContent = 'Stop';
+  running = true;
+  statusP.textContent = 'Status: calibrating background noise...';
+
+  audioContext = new (window.AudioContext || window.webkitAudioContext)();
+  const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+  
+  microphone = audioContext.createMediaStreamSource(stream);
+  analyser = audioContext.createAnalyser();
+  analyser.fftSize = 256;
+
+  javascriptNode = audioContext.createScriptProcessor(256, 1, 1);
+  microphone.connect(analyser);
+  analyser.connect(javascriptNode);
+  javascriptNode.connect(audioContext.destination);
+
+  const dataArray = new Uint8Array(analyser.frequencyBinCount);
+
+  let calibrationSamples = [];
+  let calibrationTime = Date.now();
+
+  javascriptNode.onaudioprocess = () => {
+    analyser.getByteTimeDomainData(dataArray);
+    let sum = 0;
+    for (let i = 0; i < dataArray.length; i++) {
+      let val = (dataArray[i] - 128) / 128;
+      sum += val * val;
+    }
+    const rms = Math.sqrt(sum / dataArray.length);
+
+    if (!calibrated) {
+      // Gather 2 seconds of noise data for calibration
+      calibrationSamples.push(rms);
+      if (Date.now() - calibrationTime > 2000) {
+        baseNoiseLevel = calibrationSamples.reduce((a, b) => a + b, 0) / calibrationSamples.length;
+        dynamicThreshold = baseNoiseLevel * 3; // 3x background noise
+        statusP.textContent = `Status: listening (threshold: ${dynamicThreshold.toFixed(3)})`;
+        calibrated = true;
+      }
+      return;
+    }
+
+    // Blow detection
+    if (rms > dynamicThreshold) {
+      statusP.textContent = 'Status: blow detected!';
+      blowOut();
+    }
+  };
+}
+
+function stop() {
+  startBtn.textContent = 'Start';
+  running = false;
+  statusP.textContent = 'Status: stopped';
+  calibrated = false;
+  if (audioContext) {
+    audioContext.close();
+    audioContext = null;
+  }
+}
+
+function blowOut() {
+  if (!flame.classList.contains('off')) {
+    flame.classList.add('off');
+    setTimeout(() => {
+      flame.classList.remove('off');
+      statusP.textContent = 'Status: listening...';
+    }, RELIGHT_DELAY);
+  }
+}
+</script>
+
+</body>
 </html>
