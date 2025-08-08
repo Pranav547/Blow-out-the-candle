@@ -48,38 +48,25 @@ Project Documentation
 For Software:
 
 Screenshots (Add at least 3)
-![Screenshot1](Add screenshot 1 here with proper name) Add caption explaining what this shows
-
-![Screenshot2](Add screenshot 2 here with proper name) Add caption explaining what this shows
-
-![Screenshot3](Add screenshot 3 here with proper name) Add caption explaining what this shows
+start button for detecting any blow
+<img width="875" height="548" alt="Screenshot 2025-08-08 234839" src="https://github.com/user-attachments/assets/f47a2bcb-f73a-45d9-a3bd-95f61454c0cc" />
+start listening the blow
+<img width="698" height="427" alt="Screenshot 2025-08-08 234851" src="https://github.com/user-attachments/assets/6c73648f-c997-4284-933c-46866b416ad1" />
+blow detected and candle turned off
+<img width="651" height="361" alt="Screenshot 2025-08-08 234929" src="https://github.com/user-attachments/assets/d6043478-fed1-49eb-a9f7-b857dcac6475" />
 
 Diagrams
-![Workflow](Add your workflow/architecture diagram here) Add caption explaining your workflow
+<img width="1024" height="1536" alt="image" src="https://github.com/user-attachments/assets/2726f30b-226b-47b6-8f06-40fabd8d3e90" />
 
-For Hardware:
 
-Schematic & Circuit
-![Circuit](Add your circuit diagram here) Add caption explaining connections
 
-![Schematic](Add your schematic diagram here) Add caption explaining the schematic
-
-Build Photos
-![Components](Add photo of your components here) List out all components shown
-
-![Build](Add photos of build process here) Explain the build steps
-
-![Final](Add photo of final product here) Explain the final build
 
 Project Demo
-Video
-[Add your demo video link here] Explain what the video demonstrates
+https://drive.google.com/file/d/1pTvnFX-wbhgWPA5UX_Q7ZsTFZmd_yTqF/view?usp=sharing
 
-Additional Demos
-[Add any extra demo materials/links]
 
 Team Contributions
-[Name 1]: [Specific contributions]
+[Pranav krishnan Punnakkuzhi]: [Specific contributions]
 [Name 2]: [Specific contributions]
-[Name 3]: [Specific contributions]
+
 Made with ❤️ at TinkerHub Useless Projects
