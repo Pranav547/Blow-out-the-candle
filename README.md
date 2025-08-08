@@ -2,39 +2,47 @@ blow the candle
 Basic Details
 Team Name: Dust Bin
 Team Members
-Team Lead: Pranav krishnan punnakkuzhi - Ma collage of engineering kothamangalam
+Team Lead: Pranav krishnan Punnakkuzhi - Ma collage of engineering kothamangalam
 Member 2: Muhammed Sahal - Ma collage of engineering kothamangalam
 
 Project Description
-[2-3 lines about what your project does]
+This project lets you blow out a virtual candle on your computer screen just by blowing into your microphone. It uses real-time audio analysis to detect when a strong puff of air hits the mic, and then turns off the flame — only to magically relight itself after a few seconds.
 
 The Problem (that doesn't exist)
-[What ridiculous problem are you solving?]
+People love blowing out candles on birthdays, but what about when you’re stuck in an online meeting, bored, and have no cake around? The emotional damage of not having a candle to blow out is severe and grossly overlooked in modern society.
 
 The Solution (that nobody asked for)
-[How are you solving it? Keep it fun!]
+We’ve created a browser-based candle that listens to you. Blow hard enough into your mic, and it turns off. No calories, no wax mess, no smoke alarms , just pure useless satisfaction.
 
 Technical Details
 Technologies/Components Used
 For Software:
 
-[Languages used]
-[Frameworks used]
-[Libraries used]
-[Tools used]
+HTML, CSS, JavaScript
+None (pure web tech)
+Web Audio API
+Any modern browser (Chrome/Edge recommended)  
 For Hardware:
 
-[List main components]
-[List specifications]
-[List tools required]
+A working microphone (laptop mic or external)
+A computer with internet browser
+No actual candles (fire safety FTW )
+
 Implementation
 For Software:
+Open index.html in Chrome/Edge/Firefox.
+Click Start.
+Give microphone permission.
+Blow into the mic and watch the candle go out.
 
 Installation
-[commands]
+No installation needed. Just download the index.html file and open it in your browser.
 
 Run
-[commands]
+Open index.html in Chrome/Edge/Firefox.
+Click Start.
+Give microphone permission.
+Blow into the mic and watch the candle go out.
 
 Project Documentation
 For Software:
